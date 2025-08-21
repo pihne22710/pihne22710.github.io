@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[シンプル]アメリカの配当株式計算器</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 1.8em;
+    }
+    label, input {
+      display: block;
+      margin-bottom: 1em;
+      font-size: 1rem;
+      width: 100%;
+    }
+    input {
+      padding: 0.5em;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1rem;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1em;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 2em;
+      font-weight: bold;
+      word-break: keep-all;
+    }
+
+    .wrap-container {
+      margin-top: 2em;
+      text-align: center;
+    }
+    .home-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.4em;
+      }
+      button {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!--<h1> </h1>--> 
+  <label>
+  <br><font size=6 style="font-weight:900;">💹[シンプル]アメリカの配当株式計算器</font> <a style="color: #33d45b">ver 0.0.5</a></br>
+</label>
+
+  <label>
+    <a style="color: #37b7fe">集める州:</a>
+    <input type="number" id="num" placeholder="ex: 0.108649">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">予想配当落ち:</a>
+    <input type="number" id="num1" placeholder="ex: 115.89">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">1株当りの価格:</a>
+    <input type="number" id="num2" placeholder="現在の1株当たりの価格">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">仕入れた週 :</a>
+    <input type="number" id="num3" placeholder="購入する株式数">
+  </label>
+
+  <button onclick="calculate()">計算</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    function calculate() {
+      const num = parseFloat(document.getElementById('num').value);
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const num3 = parseFloat(document.getElementById('num3').value);
+
+      if (isNaN(num) || isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+        document.getElementById('output').innerHTML = "⚠️すべての入力欄を埋めてください！";
+        return;
+      }
+
+      const YB = num * num1;
+      const afterTax = YB * (1 - 0.2828);
+      const ZG = num2 * num3;
+
+      document.getElementById('output').innerHTML =
+        `総予想配当金 : <strong>${YB.toLocaleString()}円</strong><br>` +
+        `税引き後予想配当金 (28.28% 差し引き): <strong>${afterTax.toLocaleString()}円</strong><br>` +
+        `予想購入価格 : <strong>${ZG.toLocaleString()}円</strong>`;
+    }
+  </script>
+
+  <div class="wrap-container">
+    <div class="home-container">
+
+    </div>
+  </div>  
+  <script width="5px" height="5px"  type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="Luna0x03" data-color="#BD5FFF" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+</body>
+
+by. <a href="https://github.com/Luna0x03">Luna0x03</a>
+
+<footer>  
+  <small>Copyright &copy; Kurai Luna(Luna0x03)</small>
+</footer>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>심플 배당주 계산기(원화)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 1.8em;
+    }
+    label, input {
+      display: block;
+      margin-bottom: 1em;
+      font-size: 1rem;
+      width: 100%;
+    }
+    input {
+      padding: 0.5em;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1rem;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1em;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 2em;
+      font-weight: bold;
+      word-break: keep-all;
+    }
+
+    .wrap-container {
+      margin-top: 2em;
+      text-align: center;
+    }
+    .home-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.4em;
+      }
+      button {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!--<h1> </h1>--> 
+  <label>
+  <br><font size=6 style="font-weight:900;">💹 심플 배당주 계산기(원화)</font> <a style="color: #33d45b">ver 0.0.5</a></br>
+</label>
+
+  <label>
+    <a style="color: #37b7fe">모아볼 주:</a>
+    <input type="number" id="num" placeholder="예: 22691">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">예상 배당락:</a>
+    <input type="number" id="num1" placeholder="예: 1158">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">1주당 가격:</a>
+    <input type="number" id="num2" placeholder="현재 1주당 가격">
+  </label>
+
+  <label>
+    <a style="color: #37b7fe">구입한 주:</a>
+    <input type="number" id="num3" placeholder="구입할 주식 수">
+  </label>
+
+  <button onclick="calculate()">계산하기</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    function calculate() {
+      const num = parseFloat(document.getElementById('num').value);
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const num3 = parseFloat(document.getElementById('num3').value);
+
+      if (isNaN(num) || isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+        document.getElementById('output').innerHTML = "⚠️ 모든 입력란을 채워주세요!";
+        return;
+      }
+
+      const YB = num * num1;
+      const afterTax = YB * (1 - 0.154);
+      const ZG = num2 * num3;
+
+      document.getElementById('output').innerHTML =
+        `총 예상 배당금: <strong>${YB.toLocaleString()}원</strong><br>` +
+        `세후 예상 배당금 (15.4% 공제): <strong>${afterTax.toLocaleString()}원</strong><br>` +
+        `총 예상 구입가격: <strong>${ZG.toLocaleString()}원</strong>`;
+    }
+  </script>
+
+  <div class="wrap-container">
+    <div class="home-container">
+
+    </div>
+  </div>  
+  <script width="5px" height="5px"  type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="Luna0x03" data-color="#BD5FFF" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+</body>
+
+by. <a href="https://github.com/Luna0x03">Luna0x03</a>
+
+<footer>  
+  <small>Copyright &copy; Kurai Luna(Luna0x03)</small>
+</footer>
+</html>
