@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> 겔로그 </title>
+	<link rel="stylesheet" href="/CSS/reset.css"/>
+	<link rel="stylesheet" href="/CSS/style.css"/>
+    <!-- [반응형 작동] -->
+    <link rel="stylesheet" href="CSS/b.css" />
+    <!-- [반응형 작동끝] -->
+    
+        
+<!-- [로그인 띄우기] -->
+<SCRIPT language="JavaScript"> 
+function PopWin(url, w, h, sb) {
+ var newWin;
+ var setting = "width="+w+", height="+h+", top=5, left=20, scrollbars="+sb;
+ newWin = window.open (url, "", setting);
+ newWin.focus();
+}
+</SCRIPT>
+<!-- [로그인 띄우기 끝] -->
+    
+    
+    <script LANGUAGE="JavaScript">
+    
+        var gameOver; var cardCount;
+function Shuffle(max){
+var num=Math.random()*max;
+return Math.round(num)+1;
+}
+function getSuit(){
+suit = Shuffle(4);
+if(suit == 1) return "Spades";
+if(suit == 2) return "Clubs";
+if(suit == 3) return "Diamonds";
+else return "Hearts";
+}
+function cardName(card){
+if(card == 1) return "Ace";
+if(card == 11) return "Jack";
+if(card == 12) return "Queen";
+if(card == 13) return "King";
+return "" + card;
+}
+function cardValue(card,strWho){
+if(card == 1) {
+	if(strWho =="You" && document.display.you.value >10){
+	document.display.say2.value=document.display.say2.value+" Low"; return 1;}
+	else return 11; }
+ if(card > 10) return 10; 
+return card;
+}
+function PickACard(strWho){
+card = Shuffle(12);
+suit = getSuit();
+if(strWho =="You")
+document.display.say2.value=(cardName(card) + " of " + suit);
+else
+document.display.say1.value=(cardName(card) + " of " + suit);
+return cardValue(card,strWho);
+}
+function NewHand(form){
+if(gameOver !=0)
+{form.say1.value=("Hand in Play!"); form.say2.value=(""); return;}
+else
+{form.dealer.value = 0; form.you.value = 0; cardCount=0;
+form.dealer.value = eval(form.dealer.value) + PickACard("Dealer");
+form.you.value = eval(form.you.value) + PickACard("You");
+gameOver= -1; cardCount+=1;}
+}
+function Dealer(form){
+if (gameOver ==0)
+{form.say1.value=("Deal the Cards!"); form.say2.value=(""); return;}
+else
+if(form.you.value<10)
+{form.say1.value=("Not Below Ten!"); form.say2.value=("Take a Hit!"); return;}
+else
+if (cardCount <2)
+{form.say1.value=("Minimum 2 Cards!"); form.say2.value=("Hit Again!"); return;}
+else
+while(form.dealer.value < 17)
+{form.dealer.value = eval(form.dealer.value) + PickACard("Dealer");}
+}
+function User(form){
+if (gameOver ==0)
+{form.say1.value=("Deal the Cards!"); form.say2.value=(""); return;}
+else
+{cardCount+=1; form.say1.value=("You Get...");
+form.you.value = eval(form.you.value) + PickACard("You");}
+if(form.you.value > 21)
+{form.say1.value=("You Busted!");
+gameOver=0; form.numgames.value=eval(form.numgames.value)-1;}
+}
+function LookAtHands(form){
+if (gameOver ==0 || form.you.value<10 || cardCount <2){return;}
+else
+if(form.dealer.value > 21)
+{form.say1.value=("House Busts!"); form.say2.value=("You Win! $$$$$$");
+gameOver=0; form.numgames.value=eval(form.numgames.value)+1;}
+ else
+if(form.you.value > form.dealer.value)
+{form.say1.value=("You Win!"); form.say2.value=("$$$$$$$$$$$$$$$");
+gameOver=0; form.numgames.value=eval(form.numgames.value)+1;}
+ else
+ if(form.dealer.value == form.you.value)
+{form.say1.value=("Game Tied!"); form.say2.value=("Try Again!");
+gameOver=0; form.numgames.value=eval(form.numgames.value)-1;}
+ else
+{form.say1.value=("House Wins!"); form.say2.value=("Tough Luck!");
+gameOver=0; form.numgames.value=eval(form.numgames.value)-1;}
+}
+function setBj(){
+gameOver=0; cardCount=0; 
+document.display.dealer.value=""; 
+document.display.you.value="";
+document.display.numgames.value="0";
+document.display.say1.value="    Hit 'Deal'";
+document.display.say2.value="    To Start!";
+}
+// End -->
+    
+    
+    </script>
+
+</head>
+<body>
+<!-- [메인] -->    
+		<div class="header">
+			<div class="wrap">
+				<a href="/index.html" class="logo"><img class="" src="/img/incoding.png"></a>
+				<a href="/VN.html" class="menu">|&nbsp; 소설</a>
+				<a class="menu selected" href="javascript:PopWin('/HTML/login.html','310','160','no');">로그인</a>
+			</div>
+		</div>
+<!-- [메인 끝] -->
+&nbsp;
+    <!-- [웹 게임틀] -->
+<br><br><br><br>
+   <br><form name="display" OnLoad="setBj()">
+       <table bgcolor="#509EE6" border="1" cellspacing="0" cellpadding="3"
+              style="margin: auto; text-align: padding: 10px; center; border: 3px solid rgb(55,183,254);">
+           <tr>
+               <td><center>스코어:</center></td>
+               <td><center>딜러</center></td>
+               <td><center><input type=text name="dealer" size="2"></center></td>
+               <td><center>카드(s):  <input type=text name="say1" size="18" value=""></center></td>
+           </tr>
+           
+           <tr>
+               <td><center><input type=text name="numgames" size="3" value="0"></center></td>
+               <td><center>용사</center></td>
+               <td><center><input type=text name="you" size="2"></center></td>
+               <td><center>카드(s):  <input type=text name="say2" size="18" value=""></center></td>
+           </tr>
+
+           <tr>
+               <td><center><input type=button value="Deal" onClick="NewHand(this.form)"></center></td>
+               
+               <td colspan=3><center>
+                   <input type=button value="Stand" onClick="Dealer(this.form);LookAtHands(this.form);">
+                   <input type=button value=" Hit " onClick="User(this.form)"></center></td></tr>
+       </table>
+</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script src="/wgjs/script.js"></script> 
+<br><br><br><br>
+    <!-- [웹 게임틀 끝] --> 
+    
+    <!-- [게임 설명 틀] -->
+    <div class="sa_area">
+        <div itemprop="articleBody">
+        <div><article><!--BeforeDocument(413792,472396)-->
+            <div class="document_413792_472396 xe_content">
+            
+            <center><br>
+            
+                <hr><p>▒▒▒게임 방법▒▒▒</p><br>
+                <br><p> 이 게임은 유저가 받은 카드의 합계가 딜러보다 높으면 승리.</p>
+                <br><p> 단 합계가 22 이상이면 무조건 패배. 다시말해 최대 점수는 21.</p>
+                <br><p> 에이스(Ace=A) 카드는 1로도 사용할 수 있고,</p>
+                <br><p> 11로도 사용할 수 있는 독특한 성격을 지님.</p>
+                
+                <br><p>  1. [Deal] : 카드 섞어서 나누어주기 </p>
+                <br><p>  2. [Hit] : 유저가 카드를 하나 더 받음. </p>
+                <br><p>  합계가 딜러와 유저 창에 표시. </p>
+                <br><p>  3. [Stand] : 카드를 그만 받고 펴봄.  </p>
+                <br><p>  결과 확인 후 유저의 합계가 딜러 보다 높으면 이김. </p>
+                <br><p>  4. [Score] : 승리 회수. 음수(-)로 표시되면 그 수만큼 진 것임. </p>
+                
+
+                <hr><br>
+            </center>
+    </div>
+
+
+       
+            <script type="text/javascript">//<![CDATA[
+                (function($){$(".xe_content a").attr
+                ({target: "_blank"});
+                    })(jQuery);
+    //]]>   </script>
+    <!-- [게임 설명 틀 끝] -->
+    
+<!-- [사이트 끝자락] -->
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<div class="footer wrap">
+			<div class="left">
+				<div class="title"><p>반 플래시&웹게임 즈</p></div>
+				<div class="context">누구나 할 수 있는 게임</div>
+			</div>
+			<div class="right">
+				<a href="http://blog.naver.com/inceleb">블로그</a>
+				<a href="https://www.facebook.com/incoding2015">페이스북</a>
+			</div>
+		</div>
+<!-- [사이트 끝자락 END] -->
+</body>    
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 겔로그 </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- [반응형 작동] -->
+    <link rel="stylesheet" href="CSS/b.css" />
+    <!-- [반응형 작동끝] -->
+
+
+    <!-- [로그인 띄우기] -->
+<SCRIPT language="JavaScript"> 
+    function PopWin(url, w, h, sb) {
+     var newWin;
+     var setting = "width="+w+", height="+h+", top=5, left=20, scrollbars="+sb;
+     newWin = window.open (url, "", setting);
+     newWin.focus();
+    }
+    </SCRIPT>
+    <!-- [로그인 띄우기 끝] -->
+</head>
+
+<body>
+<!-- [메인] -->    
+<div class="header">
+    <div class="wrap">
+        <a href="/index.html" class="logo"><img class="" src="/img/incoding.png"></a>
+        <a href="/VN.html" class="menu">|&nbsp; 소설</a>
+        <a class="menu selected" href="javascript:PopWin('/HTML/login.html','310','160','no');">로그인</a>
+    </div>
+</div>
+<!-- [메인 끝] -->
+<link href="/wgcss/style.css" rel="stylesheet" type="text/css">
+<div class="container">
+<div class="game-wrap">
+    <canvas width="960px" height="540" id="game" style="padding: 10px; center; border: 5px solid rgb(55,183,254);" ></canvas>
+    <div class="container">
+        <div class="game-wrap">
+            <canvas width="960px" height="540" id="game"></canvas>
+
+        </div>
+    </div>
+    <script src="game.js"></script>
+    <!-- [웹 게임틀 끝] --> 
+
+    <!-- [게임 설명 틀] -->
+    <div class="sa_area">
+        <div itemprop="articleBody">
+        <div><article><!--BeforeDocument(413792,472396)-->
+            <div class="document_413792_472396 xe_content">
+            
+            <center><br>
+            
+                <hr><p>▒▒▒게임 방법▒▒▒</p><br>
+                <br><p> 이동방향: 방향키 좌,우</p>
+                <br><p> 탄막발사: 스페이스키</p>
+                <br><p>키 변경이 안될 경우 한/영 키를 눌러 영문으로 변경하세요.</p><br>
+                <hr><br>
+            </center>
+    </div>
+            
+            <script type="text/javascript">//<![CDATA[
+                (function($){$(".xe_content a").attr
+                ({target: "_blank"});
+                    })(jQuery);
+    //]]>   </script>
+    <!-- [게임 설명 틀 끝] -->
+    
+<!-- [사이트 끝자락] -->
+
+		<div class="footer wrap">
+			<div class="left">
+				<div class="title"><p>반 플래시&웹게임 즈</p></div>
+				<div class="context">누구나 할 수 있는 게임</div>
+			</div>
+			<div class="right">
+				<a href="http://blog.naver.com/inceleb">블로그</a>
+				<a href="https://www.facebook.com/incoding2015">페이스북</a>
+			</div>
+		</div>
+<!-- [사이트 끝자락 END] -->
+
+
+
+
+</body>
+
+</html>
