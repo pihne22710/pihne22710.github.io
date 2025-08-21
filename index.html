@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <style>
+
+
+    </style>
+	<meta charset="UTF-8">
+	<title>반 웹 게임즈</title>
+	<link rel="stylesheet" href="CSS/reset.css"/>
+	<link rel="stylesheet" href="CSS/style.css"/>
+    <!-- [반응형 작동] -->
+    <link rel="stylesheet" href="CSS/b.css" />
+    <!-- [반응형 작동끝] -->
+    
+    <link style="opacity:0.4; background-image:	rgb(26, 26, 26);"/>
+
+    <!-- [눈내리는 효과] -->
+ <script type="text/javascript">
+//이 코드는 외부 라이브러리 
+(function ()
+{
+    function k(a, b, c)
+    {
+        if (a.addEventListener) {
+            a.addEventListener(b, c, false);
+        }
+        else {
+            a.attachEvent && a.attachEvent("on" + b, c);
+        }
+    }
+    function g(a)
+    {
+        if (typeof window.onload != "function")
+        {
+            window.onload = a;
+        }
+        else {
+            var b = window.onload;
+            window.onload = function ()
+            {
+                b();
+                a()
+            }
+        }
+    }
+    function h()
+    {
+        var a = {};
+        for (type in {
+            Top : "", Left : ""
+        })
+        {
+            var b = type == "Top" ? "Y" : "X";
+            if (typeof window["page" + b + "Offset"] != "undefined") {
+                a[type.toLowerCase()] = window["page" + b + "Offset"];
+            }
+            else
+            {
+                b = document.documentElement.clientHeight ? document.documentElement : document.body;
+                a[type.toLowerCase()] = b["scroll" + type];
+            }
+        }
+        return a
+    }
+    function l()
+    {
+        var a = document.body, b;
+        if (window.innerHeight) {
+            b = window.innerHeight;
+        }
+        else if (a.parentElement.clientHeight) {
+            b = a.parentElement.clientHeight;
+        }
+        else if (a && a.clientHeight) {
+            b = a.clientHeight;
+        }
+        return b
+    }
+    function i(a)
+    {
+        this.parent = document.body;
+        this.createEl(this.parent, a);
+        this.size = Math.random() * 4 + 4;
+        this.el.style.width = Math.round(this.size) + "px";
+        this.el.style.height = Math.round(this.size) + "px";
+        this.maxLeft = document.body.offsetWidth - this.size;
+        this.maxTop = document.body.offsetHeight - this.size;
+        this.left = Math.random() * this.maxLeft;
+        this.top = h().top + 1;
+        this.angle = 1.4 + 0.2 * Math.random();
+        this.minAngle = 1.4;
+        this.maxAngle = 1.6;
+        this.angleDelta = 0.01 * Math.random();
+        this.speed = 4 + Math.random()
+    }
+    var j = false;
+    g(function ()
+    {
+        j = true;
+    });
+    var f = true;
+    window.createSnow = function (a, b)
+    {
+        if (j)
+        {
+            var c = [], m = setInterval(function ()
+            {
+                f && b > c.length && Math.random() < b * 0.0025 && c.push(new i(a));
+                !f && !c.length && clearInterval(m);
+                for (var e = h().top, n = l(), d = c.length - 1; d >= 0; d--) if (c[d]) if (c[d].top < e || c[d].top + c[d].size + 1 > e + n) {
+                    c[d].remove();
+                    c[d] = null;
+                    c.splice(d, 1)
+                }
+                else {
+                    c[d].move();
+                    c[d].draw()
+                }
+            }, 40);
+            k(window, "scroll", function ()
+            {
+                for (var e = c.length - 1; e >= 0; e--) {
+                    c[e].draw();
+                }
+            })
+        }
+        else {
+            g(function () 
+            {
+                createSnow(a, b) 
+            });
+        }
+    };
+    window.removeSnow = function ()
+    {
+        f = false;
+    };
+    i.prototype = 
+    {
+        createEl : function (a, b)
+        {
+            this.el = document.createElement("img");
+            this.el.setAttribute("src", b + "./img2/snow" + Math.floor(Math.random() * 4) + ".gif");
+            this.el.style.position = "absolute";
+            this.el.style.display = "block";
+            this.el.style.zIndex = "99999";
+            this.parent.appendChild(this.el)
+        },
+        move : function ()
+        {
+            if (this.angle < this.minAngle || this.angle > this.maxAngle) {
+                this.angleDelta =- this.angleDelta;
+            }
+            this.angle += this.angleDelta;
+            this.left += this.speed * Math.cos(this.angle * Math.PI);
+            this.top -= this.speed * Math.sin(this.angle * Math.PI);
+            if (this.left < 0) {
+                this.left = this.maxLeft;
+            }
+            else if (this.left > this.maxLeft) {
+                this.left = 0;
+            }
+        },
+        draw : function ()
+        {
+            this.el.style.top = Math.round(this.top) + "px";
+            this.el.style.left = Math.round(this.left) + "px";
+        },
+        remove : function ()
+        {
+            this.parent.removeChild(this.el);
+            this.parent = this.el = null;
+        }
+    }
+})
+();
+</script>
+<script>
+    createSnow('./', 2000);
+	//------------ ./는 이미지 경로, 1000는 눈 갯수(숫자가 크면 클수록 폭설이 내립니다.)
+</script>
+<!-- [눈내리는 효과 끝] -->
+
+<!--[음악 플래이어] -->
+<!-- [이것도 외부 라이브러리] -->    
+<!-- SCM Music Player http://scmplayer.co -->
+<script type="text/javascript" src="http://scmplayer.co/script.js" 
+data-config="{'skin':'skins/simpleBlue/skin.css','volume':50,'autoplay':true,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':false,'playlist':[{'title':'Qurare: Magic Library-Can you interpret?','url':'https://youtu.be/qUmLCD11wk0'},{'title':'%uD050%uB77C%uB808 %uB9C8%uBC95%uB3C4%uC11C%uAD00 - Magic(%uAC00%uC0AC%uC788%uB294 %uBE0C%uAE08)','url':'https://youtu.be/1ZNX-UzuJTM'},{'title':'Max Payne: Bloodbath','url':'https://soundcloud.com/samgorski/max-payne-blood-bath'},{'title':'%uD050%uB77C%uB808 %uB9C8%uBC95%uB3C4%uC11C%uAD00 - Tears of the rain (%uC2A4%uD1A0%uB9AC%uBE0C%uAE08)','url':'https://youtu.be/2wvC4Dg8rrc'},{'title':'The Godfather OST - Main Theme','url':'https://www.youtube.com/watch?v=odf94qQoxLk'},{'title':'%u301096%u732B%u3011%u864E%u8996%u7708%u3005%u3092%u6B4C%u3063%u3066%u307F%u305F','url':'https://www.youtube.com/watch?v=YxOUrss6ogI'}]}" ></script>
+<!-- SCM Music Player script end -->
+<!-- [음악 플래이어 끝] -->
+    
+    
+<!-- [로그인 띄우기] -->
+<SCRIPT language="JavaScript"> 
+function PopWin(url, w, h, sb) {
+ var newWin;
+ var setting = "width="+w+", height="+h+", top=5, left=20, scrollbars="+sb;
+ newWin = window.open (url, "", setting);
+ newWin.focus();
+}
+</SCRIPT>
+<!-- [로그인 띄우기 끝] -->    
+<script type="text/javascript"> function goPage() { location.href="VN.html"; } </script>
+
+
+</head>
+<body>
+    
+<!-- [메인] -->    
+		<div class="header" style='height: 100%; width: 100%; object-fit: contain'>
+			<div class="wrap">
+				<a href="index.html" class="logo"><img class="" src="img/incoding.png"></a>
+				
+                    <a href="javascript:goPage()" class="menu">|&nbsp; 소설</a>
+                    <a class="menu selected" href="javascript:PopWin('../PP/HTML/login.html','310','160','no');">로그인</a>
+                    
+			</div>
+		</div>
+<!-- [메인 끝] -->
+    
+<!-- [이미지] -->    
+		<div class="banner" style='height: 100%; width: 100%; object-fit: contain; opacity:0.5' onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+			<div class="wrap">
+				<img src="img/banner.png">
+			</div>
+		</div>
+<!-- [이미지 끝] --> 
+
+
+    
+<!-- [개 체] -->    
+		<div class="article wrap">
+            <br><br><img src="img/PG.png" width="213px" height="48"><br>
+            <!-- [개 체1] -->
+            
+			<div class="one" >               
+				<a href="HTML/h.html"><div class="top" style="background-image:url(img/헬기어택.png); opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div></a>
+				<div class="bottom">
+                    <a href="HTML/h.html"><div class="title">헬기어텍2</div></a>
+					<div class="context">적의 헬기로 부터 자신을 지켜라</div>
+				</div>
+			</div>
+                
+            <!-- [개 체1 끝] -->
+            
+            <!-- [개 체2] -->
+			<div class="one">
+				<a href="HTML/ch.html"><div class="top" style="background-image:url(img/추락.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div></a>
+				<div class="bottom">
+                    <a href="HTML/ch.html"><div class="title">추락</div></a>
+					<div class="context">에베르스트 산에서 추락!</div>
+				</div>
+			</div>
+            <!-- [개 체2 끝] -->
+            
+            <!-- [개 체3] -->
+			<div class="one">
+				<a href="HTML/hy.html"><div class="top" style="background-image:url(img/홈런왕유상철.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="HTML/hy.html"><div class="title">홈런왕 유상철</div></a>
+					<div class="context">오노로 부터 납치된 히딩크감독을 구하자!</div>
+				</div>
+			</div>
+            <!-- [개 체3 끝] -->
+            
+            <!-- [개 체4] -->
+			<div class="one">
+				<a href="HTML/yl.html"><div class="top" style="background-image:url(img/%EB%94%94%EC%96%B4%EC%9C%A0%20%EB%96%A1%EB%B3%B6%EC%9D%B4%20%EB%A7%8C%EB%93%A4%EA%B8%B0%EA%B2%8C%EC%9E%84.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                </div></a>
+				<div class="bottom">
+                    <a href="HTML/yl.html"><div class="title">떡볶이 만들기</div></a>
+					<div class="context">조카를 위해 떡볶이를 만들어주자!</div>
+				</div>
+			</div>
+            <!-- [개 체4 끝] -->
+            
+            <!-- [개 체5] -->
+			<div class="one">
+				<a href="HTML/la.html"><div class="top" style="background-image:url(img/%EC%8A%88%EC%9D%98%20%EB%9D%BC%EB%A9%B4%EC%A7%91.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="HTML/la.html"><div class="title">라면집</div></a>
+					<div class="context">라면을 조리해서 팔아보자!</div>
+				</div>
+			</div>
+            <!-- [개 체5 끝] -->
+            
+            <!-- [개 체6] -->
+			<div class="one">
+				<a href="HTML/th.html"><div class="top" style="background-image:url(img/%EB%94%94%EC%96%B4%EC%9C%A0_%ED%83%80%EB%A1%9C%EC%B9%B4%EB%93%9C.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="HTML/th.html"><div class="title">타로카드</div></a>
+					<div class="context">자신의 운세를 알아보자 ㅋㅋㅋ</div>
+				</div>
+			</div>
+            <!-- [개 체6 끝] -->
+            
+            <!-- [개 체7] -->
+			<div class="one">
+				<a href="f2/chp.html"><div class="top" style="background-image:url(img/%EC%B6%95%EA%B5%AC%EC%99%95%EB%B0%95%EC%A3%BC%EC%98%81.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="f2/chp.html"><div class="title">축구왕 박주영</div></a>
+					<div class="context"> 추억의 박주영 키우기☆ </div>
+				</div>
+			</div>
+            <!-- [개 체7 끝] -->
+            
+            <!-- [개 체8] -->
+			<div class="one">
+				<a href="HTML/na.html"><div class="top" style="background-image:url(img/%EB%82%98%EA%B0%80%EB%A6%AC.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="HTML/na.html"><div class="title">나가리</div></a>
+					<div class="context"> 주인공이 날아다니면서 장애물 피해다니는 게임 </div>
+				</div>
+			</div>
+            <!-- [개 체8 끝] -->
+            
+            <!-- [개 체9] -->
+			<div class="one">
+				<a href="HTML/hang.html"><div class="top" style="background-image:url(img/%EC%95%84%EC%8A%A4%ED%8B%B0%EB%84%AC.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/hang.html"><div class="title">펫찾아 삼만리</div>
+                        <div class="context"> 다피네와 같이 반려펫 수색가자 </div></a>
+				</div>
+			</div>
+            <!-- [개 체9 끝] -->
+            
+            <!-- [개 체10] -->
+			<div class="one">
+				<a href="HTML/Wite.html"><div class="top" style="background-image:url(img/Wite.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/Wite.html"><div class="title">위치헌터</div>
+                        <div class="context"> 디펜스 게임 마녀가되어서<br> 악당들 어깨를 분질러주자 </div></a>
+				</div>
+			</div>
+            <!-- [개 체10 끝] -->
+            
+            <!-- [개 체11] -->
+			<div class="one">
+				<a href="HTML/bla.html"><div class="top" style="background-image:url(img/%EB%B8%94%EB%A3%A8%EB%A0%88%EB%82%981.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/bla.html"><div class="title">블루레나 인형뽑기</div>
+                        <div class="context"> 인형을 뽑으면 그인형이 행운을 이뤄준다고한다. </div></a>
+				</div>
+			</div>
+            <!-- [개 체11 끝] --> 
+            
+            
+            <!-- [개 체12] -->
+			<div class="one">
+				<a href="HTML/hb.html"><div class="top" style="background-image:url(img/%ED%95%B4%EB%B3%80%EC%9D%98%EB%B0%B0%EA%B5%AC2.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/hb.html"><div class="title">해변의 배구2</div>
+                        <div class="context"> 예전 유명 만화영화 디지케럿 캐릭터로 플래이하는 플래시게임 </div></a>
+				</div>
+			</div>
+            <!-- [개 체12 끝] -->
+            
+            <!-- [개 체13] -->
+			<div class="one">
+				<a href="HTML/ls.html"><div class="top" style="background-image:url(img/Last.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/ls.html"><div class="title">더 라스트 스탠스2</div>
+                        <div class="context"> 예상치못한 변수로 불시착한 주인공이 펼치는 좀비생존 디팬스 </div></a>
+				</div>
+			</div>
+            <!-- [개 체13 끝] -->   
+            
+            <!-- [개 체15] -->
+			<div class="one">
+				<a href="HTML/rd.html"><div class="top" style="background-image:url(img/%EB%9E%98%EB%B9%97%EB%93%9C%EB%A1%AD.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+					<a href="HTML/rd.html"><div class="title">래빗드롭</div>
+                        <div class="context"> 절벽(?)으로 떨어진 토끼 </div></a>
+				</div>
+			</div>
+            <!-- [개 체15 끝] -->  
+            
+            
+            <!-- [개 체17] -->
+			<div class="one">
+				<div class="top" style="background-image:url(img/%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%AF%B8%EC%9A%B0.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div>
+				<div class="bottom">
+					<div class="title">냉 무</div>
+					<div class="context"> 냉 무 </div>
+				</div>
+			</div>
+            <!-- [개 체17 끝] -->
+            
+            <!-- [개 체18] -->
+			<div class="one">
+				<div class="top" style="background-image:url(img/%EC%9E%A5%EC%9E%90.jpg);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div>
+				<div class="bottom">
+					<div class="title">냉 무</div>
+					<div class="context"> 냉 무 </div>
+				</div>
+			</div>
+            <!-- [개 체18 끝] -->
+            
+            <!-- [개 체19] -->
+			<div class="one">
+				<div class="top" style="background-image:url(img/l.jpg); width: 213;opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div>
+				<div class="bottom">
+					<div class="title">냉 무</div>
+					<div class="context"> 냉 무 </div>
+				</div>            
+			</div>
+            <!-- [개 체19 끝] -->
+            
+            <!-- [개 체20] -->
+			<div class="one">
+				<div class="top" style="background-image:url(img/Eris.png); width: 213;opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div>
+				<div class="bottom">
+					<div class="title">냉 무</div>
+					<div class="context"> 냉 무 </div>
+				</div>
+            </div>
+            <!-- [개 체20 끝] -->
+            
+		</div>
+<!-- [개 체 끝] -->  
+
+<!-- [웹게임 개 체] -->  
+    <div class="article wrap">
+              <br><br><img src="img/WG.png"  width="213px" height="48"><br>
+                
+                
+            <!-- [개 체1] -->
+			<br><div class="one">
+				<a href="wg/Galaga.html"><div class="top" style="background-image:url(img/고전게임1.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="wg/Galaga.html"><div class="title"> 갤러가 게임 </div></a>
+					<div class="context"> 예전 문구점과 오락실에서<br> 마주했던 바로 그게임! </div>
+				</div>
+			</div>
+            <!-- [개 체1 끝] -->
+            
+            <!-- [개 체2] -->
+			<div class="one">
+				<a href="wg/RR.html"><div class="top" style="background-image:url(img/Russian%20Roulette.png);opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="wg/RR.html"><div class="title">러시아 룰렛</div></a>
+					<div class="context"> 비록 추억의 게임은 아니지만<br> 점심내기 딱좋은 게임 ㅋㅋ </div>
+				</div>
+			</div>
+            <!-- [개 체2 끝] -->       
+        
+            <!-- [개 체3] -->
+			<div class="one">
+				<a href="wg/TS.html"><div class="top" style="background-image:url(img/puyo-puyo-tetris.png); width: 213;opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="wg/TS.html"><div class="title"> 테트리스 </div></a>
+					<div class="context"> 오락실에서 봤던 고전게임<br> 막대기끼워마추는 게임 </div>
+				</div>
+			</div>
+            <!-- [개 체3 끝] -->
+        
+            <!-- [개 체死] -->        
+        <div class="one">
+				<a href="wg/BJ.html"><div class="top" style="background-image:url(img/BLACK%20JACK.jpg); width: 213;opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+                    </div></a>
+				<div class="bottom">
+                    <a href="wg/BJ.html"><div class="title">택스트 블랙잭</div></a>
+					<div class="context"> 추억의 게임 은 아니지만<br>블랙잭 이라는 카드게임 으로 <br>내기에서 살아남아라.. </div>
+				</div>
+			</div>
+            <!-- [개 체死 끝] -->
+        
+            <!-- [개 체5] -->
+        <div class="one">
+				<div class="top" style="background-image:url(img/zz.png); width: 213;opacity:0.5" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.5'">
+				</div>
+				<div class="bottom">
+					<div class="title">냉 무</div>
+					<div class="context"> 냉 무 </div>
+				</div>
+			</div>
+
+            <!-- [개 체5 끝] -->
+        
+                
+                
+    </div>
+<!-- [웹게임 개 체 끝] -->    
+    
+<!-- [사이트 끝자락] -->    
+		<div class="footer wrap">
+			<div class="left">
+				<div class="title"><p>반 플래시&웹게임 즈</p></div>
+				<div class="context">누구나 할 수 있는 게임</div>
+			</div>
+			<div class="right">
+				<a href="https://kurailuna.github.io/">블로그</a>
+				<a href="https://twitter.com/Luna_0x02/">트위터</a>
+			</div>
+		</div>
+<!-- [사이트 끝자락 END] -->
+
+ 
+</body>
+</html>
