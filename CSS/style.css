@@ -1,0 +1,31 @@
+/* 매  인 */
+	.wrap{width:1000px;margin:0 auto;}
+
+	/* 헤더 */
+	.header{background:#fff;color:#000;overflow: hidden;border-bottom:2px solid #37b7fe /* #ff6375 */ ;}
+	.header .logo{float:left;display: block;padding:30px 0 19px 0;}
+	.header .logo img{height:31px;}
+	.header .menu{float:right;display:block;padding-top:38px;color:#888;font-size:16px;margin-right:25px;}
+	.header .menu.selected{font-weight: bold;color: #37b7fe /* #ff6375 */;}
+
+	/* 배너 */
+	.banner{padding:150px 0;background-image:url(../img/back.jpg);background-size: cover}
+	.banner img{padding-left:50px;}
+
+	/* 본문 */
+	.article{overflow: hidden;padding:30px 0;}
+	.article .one{float:left;width:30%;margin:0 1.5% 20px; border:1px solid #e0e0e0; box-sizing: border-box;}
+	.article .one .top{height:200px; background-size: cover;border-bottom:1px solid #e0e0e0;}
+	.article .one .bottom{padding:20px;}
+	.article .one .bottom .title{font-size:16px;font-weight: bold;padding-bottom:15px;color:#333;}
+	.article .one .bottom .context{font-size:12px;line-height:1.5;height:45px;color:#777;}
+
+	.article .help{padding:100px 0;font-size:24px;border:1px solid #e0e0e0;background-image:url(img/btn.png);}
+
+	/* 푸터 */
+    .footer{padding:15px 0 30px;border-top:2px solid #efefef;margin-top: 40px;overflow: hidden}
+    .footer .left{float: left;}
+    .footer .right{float: right;overflow: hidden;margin-top:15px 0;}
+    .footer .right a{color: #777; font-size: 12px;}
+    .footer .right{font-size: 13px;font-weight: bold; color: #444;margin: 20px 0;}
+    .footer .context{font-size: 12px;color: #777;margin: 20px 0;}
