@@ -1,10 +1,11 @@
 ## Source
 
-?? Art :
+📎 Art :
 [@GS_pno](https://x.com/GS_pno/)
 
-?? Link : 
+📎 Link : 
 [Deleted]()
 
-The First Discovery : 
+📎 The First Discovery : 
+
 https://x.com/homowal/status/1356522172773203968
